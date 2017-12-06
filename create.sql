@@ -91,17 +91,18 @@ create table if not exists KuvarSpremaJelo(
 );
 
 create table if not exists Specijalitet (
-  sifraJela int not null,
+  sifraSpecijaliteta int not null,
   sifraRadnika int not null,
-  primary key (sifraJela, sifraRadnika),
-  foreign key (sifraRadnika) references Kuvar (sifraRadnika) on delete cascade on update cascade,
-  foreign key (sifraJela) references Jelo (sifraJela) on delete cascade on update cascade
+  imeSpecijaliteta varchar(45) not null,
+  cenaSpecijaliteta int not null,
+  primary key (sifraSpecijaliteta, sifraRadnika),
+  foreign key (sifraRadnika) references Kuvar (sifraRadnika) on delete cascade on update cascade
 );
 
 create table if not exists Sastojak (
   sifraSastojka int not null primary key,
   imeSastojka varchar(45) not null,
-  brojJelaUkojaIde int not null,
+  brojJelaUkojaIde int not null default 0,
   cenaNaTrzistu int not null
 );
 
@@ -125,7 +126,7 @@ create table if not exists ZamenaSastojkaDrugimSastojkom (
 
 create table if not exists Zacin (
   sifraZacina int not null primary key,
-  imeZacina int not null,
+  imeZacina varchar (45) not null,
   cenaZacina int not null
 );
 
