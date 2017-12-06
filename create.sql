@@ -52,15 +52,21 @@ create table if not exists Prodavac (
   foreign key (sifraRadnika) references Radnik (sifraRadnika) on delete cascade on update cascade
 );
 
+create table if not exists Reon(
+  idReona int primary key not null,
+  imeReona varchar(45) not null,
+  vaznostReona int not null
+);
+
 create table if not exists Raznosac (
   sifraRadnika int not null primary key,
-  reon varchar(45) not null,
-  vaznostReona int not null,
+  idReona int not null,
   modelAutomobila varchar(45) not null,
   potrosnjaAutomobila int not null,
   cenaGorivaZaAutomobil int not null,
   cenaGorivaNaMesecnomNivou int not null,
-  foreign key (sifraRadnika) references Radnik (sifraRadnika) on delete cascade on update cascade
+  foreign key (sifraRadnika) references Radnik (sifraRadnika) on delete cascade on update cascade,
+  foreign key (idReona) references Reon (idReona) on delete cascade on update cascade
 );
 
 -- alter table Raznosac set cenaGorivaNaMesecnomNivou = cenaGorivaZaAutomobil * potrosnjaAutomobila * reon;

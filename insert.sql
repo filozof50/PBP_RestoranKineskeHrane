@@ -28,9 +28,12 @@ values (1, 'Visa kuvarska', 5, 5), (2, 'Visa kuvarska', 8, 8), (3, 'Visa kuvarsk
 insert into Prodavac (sifraRadnika)
 values (4);
 
-insert into Raznosac (sifraRadnika, reon, vaznostReona, modelAutomobila, potrosnjaAutomobila,
+insert into Reon (idReona, imeReona, vaznostReona)
+values (4, 'Banovo Brdo', 3);
+
+insert into Raznosac (sifraRadnika, idReona, modelAutomobila, potrosnjaAutomobila,
                       cenaGorivaZaAutomobil, cenaGorivaNaMesecnomNivou)
-values (5, 'Banovo Brdo', 3, 'Golf 4', 7, 143, 3087);
+values (5, 4, 'Golf 4', 7, 143, 3087);
 
 insert into Jelo (sifraJela, imeJela, brojKuvaraKojiUmejuDaSpremeJelo, cenaJela, sifraRestorana)
 values (1234, 'Teletina u kari sosu', 2, 430, 12345), (1324, 'Piletina u kari sosu', 2, 530, 12345),
