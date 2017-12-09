@@ -50,6 +50,22 @@ begin
 end@
 
 
+drop trigger if exists azurirajPlate@
+
+create trigger azurirajPlate after update on Radnik
+for each row
+begin
+  declare plate integer;
+  set plate = (select ukupanIznosPlataZaposlenih from Restoran);
+
+  if (new.plata < old.plata) then
+    update Restoran set ukupanIznosPlataZaposlenih = (plate - old.plata + new.plata);
+  else
+    update Restoran set ukupanIznosPlataZaposlenih = (plate + new.plata - old.plata);
+  end if;
+end@
+
+
 drop trigger if exists azurirajUkupnuCenuGoriva@
 
 create trigger azurirajUkupnuCenuGoriva after insert on Raznosac
@@ -106,7 +122,7 @@ begin
   declare kuvari integer;
   set kuvari = (select brojKuvaraKojiUmejuDaSpremeJelo from Jelo where sifraJela = new.sifraJela);
 
-  update Jelo set brojKuvaraKojiUmejuDaSpremeJelo = (kuvari + 1);
+  update Jelo set brojKuvaraKojiUmejuDaSpremeJelo = (kuvari + 1) where sifraJela = new.sifraJela;
 end@
 
 
@@ -118,8 +134,9 @@ begin
   declare kuvari integer;
   set kuvari = (select brojKuvaraKojiUmejuDaSpremeJelo from Jelo where sifraJela = old.sifraJela);
 
-  update Jelo set brojKuvaraKojiUmejuDaSpremeJelo = (kuvari - 1);
+  update Jelo set brojKuvaraKojiUmejuDaSpremeJelo = (kuvari - 1) where sifraJela = old.sifraJela;
 end@
+
 
 drop trigger if exists azurirajBrojJela@
 
@@ -129,7 +146,7 @@ begin
   declare jela integer;
   set jela = (select brojJelaUkojaIde from Sastojak where sifraSastojka = new.sifraSastojka);
 
-  update Sastojak set brojJelaUkojaIde = (jela + 1);
+  update Sastojak set brojJelaUkojaIde = (jela + 1) where sifraSastojka = new.sifraSastojka;
 end@
 
 
@@ -141,7 +158,7 @@ begin
   declare jela integer;
   set jela = (select brojJelaUkojaIde from Sastojak where sifraSastojka = old.sifraSastojka);
 
-  update Sastojak set brojJelaUkojaIde = (jela - 1);
+  update Sastojak set brojJelaUkojaIde = (jela - 1) where sifraSastojka = old.sifraSastojka;
 end@
 
 
@@ -151,4 +168,44 @@ create trigger obrisiSpecijalitet after delete on Kuvar
 for each row
 begin
   delete from Specijalitet where sifraRadnika = old.sifraRadnika;
+end@
+
+drop trigger if exists obrisiKuvara@
+
+create trigger obrisiKuvara after delete on Kuvar
+for each row
+begin
+  delete from Radnik where sifraRadnika = old.sifraRadnika;
+end@
+
+drop trigger if exists obrisiRaznosaca@
+
+create trigger obrisiRaznosaca after delete on Raznosac
+for each row
+begin
+  delete from Radnik where sifraRadnika = old.sifraRadnika;
+end@
+
+drop trigger if exists obrisiProdavca@
+
+create trigger obrisiProdavca after delete on Prodavac
+for each row
+begin
+  delete from Radnik where sifraRadnika = old.sifraRadnika;
+end@
+
+drop trigger if exists obrisiKineski@
+
+create trigger obrisiKineski after delete on KineskiZacin
+for each row
+begin
+  delete from Zacin where sifraZacina = old.sifraZacina;
+end@
+
+drop trigger if exists obrisiObican@
+
+create trigger obrisiObican after delete on ObicanZacin
+for each row
+begin
+  delete from Zacin where sifraZacina = old.sifraZacina;
 end@

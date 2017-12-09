@@ -15,7 +15,7 @@ values (1, 'Chu Won', 'Chin', 1000, '1989-07-12', 'chuWon@gmail.com', '064928337
         'Milutina Milankovica 34', 12345, 1),
        (2, 'Ho Lee', 'Fuk', 1300, '1983-04-12', 'Lee@gmail.com', '0655883374', 1,
         'Gospodara Vucica 34', 12345, 0),
-       (3, 'Bang Ding', 'Ow', 2700, '1973-10-12', 'Ding@gmail.com', '0615876374', 9,
+       (3, 'Bo Ding', 'Ow', 2700, '1973-10-12', 'Ding@gmail.com', '0615876374', 9,
         'Resavska 14', 12345, 1),
        (4, 'Jovana', 'Ivanovic', 4700, '1988-10-12', 'Joka@gmail.com', '0613824974', 4,
         'Ustanicka 14', 12345, 0),
@@ -36,8 +36,8 @@ insert into Raznosac (sifraRadnika, idReona, modelAutomobila, potrosnjaAutomobil
 values (5, 4, 'Golf 4', 7, 143, 3087);
 
 insert into Jelo (sifraJela, imeJela, brojKuvaraKojiUmejuDaSpremeJelo, cenaJela, sifraRestorana)
-values (1234, 'Teletina u kari sosu', 2, 430, 12345), (1324, 'Piletina u kari sosu', 2, 530, 12345),
-       (1243, 'Svinjetina u kari sosu', 3, 480, 12345);
+values (1234, 'Teletina u kari sosu', default, 430, 12345), (1324, 'Piletina u kari sosu', default, 530, 12345),
+       (1243, 'Svinjetina u kari sosu', default, 480, 12345);
 
 insert into KuvarSpremaJelo (sifraRadnika, sifraJela)
 values (1,1234), (2,1234), (1,1324), (2,1324), (1,1243), (2,1243), (3,1243);
