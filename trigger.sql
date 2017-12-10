@@ -209,3 +209,14 @@ for each row
 begin
   delete from Zacin where sifraZacina = old.sifraZacina;
 end@
+
+
+drop trigger if exists IzracunajCenuGoriva@
+
+create trigger IzracunajCenuGoriva before insert on Raznosac
+for each row
+begin
+  declare reon integer;
+  set reon = (select vaznostReona from Reon where idReona = new.idReona);
+  set new.cenaGorivaNaMesecnomNivou = new.cenaGorivaZaAutomobil * reon * new.potrosnjaAutomobila;
+end;
