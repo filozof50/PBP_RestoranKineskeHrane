@@ -82,17 +82,17 @@ void dodajRaznosaca (Sql *sql)
   int reon = dodajReon(sql);
 
   printf ("Sada mozete dodati raznosaca.\nUnesite redom:\nmodel automobila\n\
-potrosnju automobila\ncenu goriva koje automobil trosi\nukupnu cenu goriva na mesecnom nivou\n");
+potrosnju automobila\ncenu goriva koje automobil trosi\n");
 
   char *model;
   int potrosnja, gorivo, gorivoMesec;
 
   scanf ("%ms", &model);
-  scanf ("%i%i%i", &potrosnja,&gorivo,&gorivoMesec);
+  scanf ("%i%i", &potrosnja, &gorivo);
 
-  sprintf (sql->query, "insert into Raznosac (sifraRadnika, modelAutomobila, potrosnjaAutomobila, cenaGorivaZaAutomobil,\
-    cenaGorivaNaMesecnomNivou, idReona) values (%i, '%s', %i, %i, %i, %i)",
-    sifra, model, potrosnja, gorivo, gorivoMesec,reon);
+  sprintf (sql->query, "insert into Raznosac (sifraRadnika, idReona, modelAutomobila, potrosnjaAutomobila,\
+    cenaGorivaZaAutomobil, cenaGorivaNaMesecnomNivou) values (%i, %i, '%s', %i, %i, 0)",\
+    sifra, reon, model, potrosnja, gorivo);
 
   if (mysql_query(sql->konekcija,sql->query)) {
     printf ("Neuspesno izvrsavanje upita\n");
